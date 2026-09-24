@@ -14,7 +14,7 @@ FaceDetectorOptions = mp.tasks.vision.FaceDetectorOptions
 FaceDetectorResult = mp.tasks.vision.FaceDetectorResult
 VisionRunningMode = mp.tasks.vision.RunningMode
 LatestResult = None
-# Create a face detector instance with the live stream mode:
+
 def print_result(result: FaceDetectorResult, output_image: mp.Image, timestamp_ms: int):
     print('face detector result: {}'.format(result))
     global LatestResult 
@@ -25,11 +25,10 @@ options = FaceDetectorOptions(
     running_mode=VisionRunningMode.LIVE_STREAM,
     result_callback=print_result)
 with FaceDetector.create_from_options(options) as detector:
-  # The detector is initialized. Use it here.
-  # ...
+ 
     cap = cv.VideoCapture(0)
 
-    #
+    
 
     fourcc = cv.VideoWriter_fourcc(*'XVID')
     out = cv.VideoWriter('output.avi', fourcc, 20.0, (640,  480))
@@ -64,7 +63,7 @@ with FaceDetector.create_from_options(options) as detector:
 
 
         frame = cv.flip(frame, 1)
-        # Display the resulting frame
+        
 
         
         out.write(frame)

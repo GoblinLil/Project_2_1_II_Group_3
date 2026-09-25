@@ -5,6 +5,7 @@ from typing import cast
 import cv2 as cv
 import numpy as np
 import time
+from pathlib import Path
 
 #Just a small setup for the face tracker, probably will have to change a lot to be able to implement it into the project
 
@@ -14,6 +15,7 @@ FaceDetectorOptions = mp.tasks.vision.FaceDetectorOptions
 FaceDetectorResult = mp.tasks.vision.FaceDetectorResult
 VisionRunningMode = mp.tasks.vision.RunningMode
 LatestResult = None
+MODEL_PATH = Path(__file__).resolve().with_name('blaze_face_short_range.tflite')
 
 def print_result(result: FaceDetectorResult, output_image: mp.Image, timestamp_ms: int):
     print('face detector result: {}'.format(result))
@@ -21,7 +23,7 @@ def print_result(result: FaceDetectorResult, output_image: mp.Image, timestamp_m
     LatestResult = result
 
 options = FaceDetectorOptions(
-    base_options=BaseOptions(model_asset_path='C:/Users/tudor/Desktop/Project 2-1/blaze_face_short_range.tflite'),
+    base_options=BaseOptions(model_asset_path=str(MODEL_PATH)),
     running_mode=VisionRunningMode.LIVE_STREAM,
     result_callback=print_result)
 with FaceDetector.create_from_options(options) as detector:
